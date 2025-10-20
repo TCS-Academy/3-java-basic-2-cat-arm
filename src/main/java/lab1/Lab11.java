@@ -10,13 +10,11 @@ public class Lab11 {
     // ถ้า name เป็น null หรือ empty string ก็ให้ throw InvalidNameException
     public static void validateName(String name) throws InvalidNameException {
         // TODO: เช็คว่า name เป็น "XXX", null, หรือ empty string แล้ว throw InvalidNameException
-        try {
-            validateName("ArmXXX");
-            // validateName("Arm");
-        } catch (InvalidNameException e) {
-            System.err.println("Validation Error: " + e.getMessage());
-        } finally {
-            System.out.println("This block always runs.");
+        if (name == null || name.trim().isEmpty()) {
+            throw new InvalidNameException("Name cannot be null or empty");
+        }
+        if ("XXX".equals(name)) {
+            throw new InvalidNameException("Name cannot be XXX");
         }
     }
     
