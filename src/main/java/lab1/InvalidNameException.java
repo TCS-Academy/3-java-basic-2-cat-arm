@@ -6,5 +6,10 @@ public class InvalidNameException extends Exception {
     // TODO: สร้าง constructor ที่รับ message
     public InvalidNameException(String message) {
         // TODO: เรียก super(message)
+        super(message);
+    }
+    
+    public InvalidNameException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

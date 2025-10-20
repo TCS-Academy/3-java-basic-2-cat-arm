@@ -12,6 +12,9 @@ public class Lab12 {
     // ให้สร้าง method ที่เขียนข้อความ "Hello, File I/O!" ลงในไฟล์ data.txt
     public static void writeToDataFile() throws IOException {
         // TODO: ใช้ FileWriter เพื่อเขียนข้อความ "Hello, File I/O!" ลงในไฟล์ data.txt
+        try (FileWriter writer = new FileWriter("data.txt")) {
+            writer.write("Hello, File I/O!");
+        }
     }
     
     // โจทย์ทำตาม: ใช้ Scanner เพื่ออ่านข้อความจากไฟล์ data.txt และแสดงผลออกทางหน้าจอ
@@ -19,7 +22,13 @@ public class Lab12 {
     public static String readFromDataFile() throws IOException {
         // TODO: ใช้ Scanner เพื่ออ่านข้อความจากไฟล์ data.txt
         // TODO: return เนื้อหาที่อ่านได้
-        return "";
+        StringBuilder content = new StringBuilder();
+        try (Scanner scanner = new Scanner(new File("data.txt"))) {
+            while (scanner.hasNextLine()) {
+                content.append(scanner.nextLine());
+            }
+        }
+        return content.toString();
     }
     
     // โจทย์ทำเอง: เขียนโปรแกรมที่เขียนข้อมูลลงในไฟล์ชื่อ log.txt
@@ -27,6 +36,16 @@ public class Lab12 {
     public static void writeLogFile() throws IOException {
         // TODO: ใช้ FileWriter เพื่อเขียนข้อความ "Application started at " + เวลาปัจจุบัน ลงในไฟล์ log.txt
         // คำแนะนำ: ใช้ LocalDateTime.now() เพื่อได้เวลาปัจจุบัน
+        String filename3 = "log.txt";
+        try (FileWriter writer3 = new FileWriter(filename3)) {
+            LocalDateTime now = LocalDateTime.now() ;
+            writer3.write("Application started at " + now + "\n");
+            writer3.write("This is the second line.\n");
+            System.out.println("Successfully wrote to file: " + filename3);
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing");
+            e.printStackTrace();
+        }
     }
     
     // โจทย์ทำเอง: อ่านเนื้อหาจากไฟล์ log.txt แล้วแสดงผล
@@ -34,13 +53,31 @@ public class Lab12 {
     public static String readLogFile() throws IOException {
         // TODO: ใช้ Scanner เพื่ออ่านข้อความจากไฟล์ log.txt
         // TODO: return เนื้อหาที่อ่านได้
-        return "";
+        StringBuilder content = new StringBuilder();
+        try (Scanner scanner = new Scanner(new File("log.txt"))) {
+            while (scanner.hasNextLine()) {
+                content.append(scanner.nextLine()).append("\n");
+            }
+        }
+        return content.toString();
     }
     
     // Optional: เขียนโปรแกรมที่อ่านไฟล์ที่มีตัวเลขในแต่ละบรรทัด แล้วคำนวณหาผลรวมของตัวเลขเหล่านั้น
     // ให้สร้าง method ที่สร้างไฟล์ numbers.txt ที่มีตัวเลข 1, 2, 3, 4, 5 แต่ละบรรทัด
     public static void writeNumbersFile() throws IOException {
         // TODO: ใช้ FileWriter เพื่อเขียนตัวเลข 1, 2, 3, 4, 5 แต่ละบรรทัดลงในไฟล์ numbers.txt
+        String filename4 = "numbers.txt";
+        try (FileWriter writer3 = new FileWriter(filename4)) {
+            writer3.write("1\n");
+            writer3.write("2\n");
+            writer3.write("3\n");
+            writer3.write("4\n");
+            writer3.write("5\n");
+            System.out.println("Successfully wrote to file: " + filename4);
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing");
+            e.printStackTrace();
+        }
     }
     
     // Optional: อ่านไฟล์ numbers.txt และคำนวณผลรวม
@@ -49,7 +86,14 @@ public class Lab12 {
         // TODO: ใช้ Scanner เพื่ออ่านตัวเลขจากไฟล์ numbers.txt
         // TODO: คำนวณผลรวมของตัวเลขทั้งหมด
         // TODO: return ผลรวม (ควรเป็น 15)
-        return 0;
+        int result = 0;
+        try (Scanner scanner = new Scanner(new File("numbers.txt"))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                result += Integer.parseInt(line.trim());
+            }
+        }
+        return result;
     }
     
     // Helper method สำหรับตรวจสอบว่าไฟล์มีอยู่หรือไม่
