@@ -17,8 +17,26 @@ public class Lab12 {
     // โจทย์ทำตาม: ใช้ Scanner เพื่ออ่านข้อความจากไฟล์ data.txt และแสดงผลออกทางหน้าจอ
     // ให้สร้าง method ที่อ่านเนื้อหาจากไฟล์ data.txt และคืนค่าเป็น String
     public static String readFromDataFile() throws IOException {
+        String filename2 = "data.txt";
         // TODO: ใช้ Scanner เพื่ออ่านข้อความจากไฟล์ data.txt
         // TODO: return เนื้อหาที่อ่านได้
+        try (FileWriter writer2 = new FileWriter(filename2)) {
+            writer2.write("Hello, Life");
+            writer2.close();
+            System.out.println("Successfully wrote to file: " + filename2);
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing.");
+            e.printStackTrace();
+        }
+        try (Scanner scanner2 = new Scanner(new File(filename2))) {
+            System.out.println("Reading from file:");
+            while (scanner2.hasNextLine()) {
+                System.out.println(scanner2.nextLine());
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading.");
+            e.printStackTrace();
+        }
         return "";
     }
     
@@ -27,6 +45,16 @@ public class Lab12 {
     public static void writeLogFile() throws IOException {
         // TODO: ใช้ FileWriter เพื่อเขียนข้อความ "Application started at " + เวลาปัจจุบัน ลงในไฟล์ log.txt
         // คำแนะนำ: ใช้ LocalDateTime.now() เพื่อได้เวลาปัจจุบัน
+        String filename3 = "log.txt";
+        try (FileWriter writer3 = new FileWriter(filename3)) {
+            LocalDateTime now = LocalDateTime.now() ;
+            writer3.write("Application started at " + now + "\n");
+            writer3.write("This is the second line.\n");
+            System.out.println("Successfully wrote to file: " + filename3);
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing");
+            e.printStackTrace();
+        }
     }
     
     // โจทย์ทำเอง: อ่านเนื้อหาจากไฟล์ log.txt แล้วแสดงผล
@@ -34,6 +62,16 @@ public class Lab12 {
     public static String readLogFile() throws IOException {
         // TODO: ใช้ Scanner เพื่ออ่านข้อความจากไฟล์ log.txt
         // TODO: return เนื้อหาที่อ่านได้
+        String filename3 = "log.txt";
+        try (Scanner scanner3 = new Scanner(new File (filename3))) {
+            System.out.println("Reading from file:");
+            while (scanner3.hasNextLine()) {
+                System.out.println(scanner3.nextLine());
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading");
+            e.printStackTrace();
+        }
         return "";
     }
     
@@ -41,6 +79,18 @@ public class Lab12 {
     // ให้สร้าง method ที่สร้างไฟล์ numbers.txt ที่มีตัวเลข 1, 2, 3, 4, 5 แต่ละบรรทัด
     public static void writeNumbersFile() throws IOException {
         // TODO: ใช้ FileWriter เพื่อเขียนตัวเลข 1, 2, 3, 4, 5 แต่ละบรรทัดลงในไฟล์ numbers.txt
+        String filename4 = "numbers.txt";
+        try (FileWriter writer3 = new FileWriter(filename4)) {
+            writer3.write("1\n");
+            writer3.write("2\n");
+            writer3.write("3\n");
+            writer3.write("4\n");
+            writer3.write("5\n");
+            System.out.println("Successfully wrote to file: " + filename4);
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing");
+            e.printStackTrace();
+        }
     }
     
     // Optional: อ่านไฟล์ numbers.txt และคำนวณผลรวม
@@ -49,7 +99,18 @@ public class Lab12 {
         // TODO: ใช้ Scanner เพื่ออ่านตัวเลขจากไฟล์ numbers.txt
         // TODO: คำนวณผลรวมของตัวเลขทั้งหมด
         // TODO: return ผลรวม (ควรเป็น 15)
-        return 0;
+        String filename4 = "numbers.txt";
+        int result = 0;
+        try (Scanner scanner4 = new Scanner(new File (filename4))) {
+            System.out.println("Reading from file:");
+            while (scanner4.hasNextLine()) {
+                String line = scanner4.nextLine();
+                result += Integer.parseInt(line.trim());
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading");
+            e.printStackTrace();
+        }
+        return result;
     }
     
     // Helper method สำหรับตรวจสอบว่าไฟล์มีอยู่หรือไม่
