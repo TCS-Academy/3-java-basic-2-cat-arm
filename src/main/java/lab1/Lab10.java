@@ -67,15 +67,20 @@ public class Lab10 {
         // TODO: implement word counting logic
         // คำแนะนำ: 
         // 1. แปลงประโยคเป็นตัวพิมพ์เล็ก
-        String wordLowerCase = sentence.toLowerCase();
+        String wordLowerCase = sentence.toLowerCase().trim();
         // 2. แยกคำด้วย split("\\s+")
-        String[] wordSplit = wordLowerCase.split(" ");
+        if (wordLowerCase.isEmpty()) {
+            return wordCount; // Return empty map for empty string
+        }
+        String[] wordSplit = wordLowerCase.split("\\s+");
         // 3. วนลูปนับความถี่แต่ละคำ
         for (int i = 0; i < wordSplit.length; i++) {
-            if (wordCount.containsKey(wordSplit[i])) {
-                wordCount.put(wordSplit[i], wordCount.get(wordSplit[i]) + 1);
-            } else {
-                wordCount.put(wordSplit[i], 1);
+            if (!wordSplit[i].isEmpty()) { // Skip empty strings
+                if (wordCount.containsKey(wordSplit[i])) {
+                    wordCount.put(wordSplit[i], wordCount.get(wordSplit[i]) + 1);
+                } else {
+                    wordCount.put(wordSplit[i], 1);
+                }
             }
         }
         return wordCount;
