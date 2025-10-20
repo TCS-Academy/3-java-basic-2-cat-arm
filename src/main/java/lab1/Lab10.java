@@ -53,6 +53,11 @@ public class Lab10 {
         Map<String, Integer> wordCount = new HashMap<>();
         // TODO: นับความถี่ของคำในประโยค "hello world hello java world"
         // คำแนะนำ: ใช้ String.split() เพื่อแยกคำ และ toLowerCase() เพื่อแปลงเป็นตัวพิมพ์เล็ก
+        String sentence = "hello world hello java world";
+        String[] words = sentence.toLowerCase().split("\\s+");
+        for (String word : words) {
+            wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+        }
         return wordCount;
     }
     
